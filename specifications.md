@@ -299,6 +299,7 @@ git push origin :hotfix/v0.1.0
 ```bash
 # 创建一个git项目，并创建master和develop分支
 git flow init
+# 执行以上指令，会输出一下配置内容
 # 初始的配置保持默认即可，这里保持分支命名规范与上面相同
 Initialized empty Git repository in /home/ygr/codes/github/gitflow2/.git/
 No branches exist yet. Base branches must be created now.
@@ -314,8 +315,32 @@ Support branches? [support/]
 Version tag prefix? [] 
 Hooks and filters directory? [/home/ygr/codes/github/gitflow2/.git/hooks] 
 ```
-在一个gitflow流程的项目中使用gitflow
+
+在一个已经存在的git项目中使用gitflow
 ```bash
+git flow init
+# 执行以上指令，会输出一下配置内容
+Which branch should be used for bringing forth production releases?
+   - develop
+   - feature/gitcommand
+   - master
+
+# 这里只要设置master为production releases即可，其他的保持默认
+Branch name for production releases: [master] master
+
+Which branch should be used for integration of the "next release"?
+   - develop
+   - feature/gitcommand
+Branch name for "next release" development: [develop] 
+
+How to name your supporting branch prefixes?
+Feature branches? [feature/] 
+Bugfix branches? [bugfix/] 
+Release branches? [release/] 
+Hotfix branches? [hotfix/] 
+Support branches? [support/] 
+Version tag prefix? [] 
+Hooks and filters directory? [/home/ygr/codes/github/gitflow/.git/hooks] 
 
 ```
 
