@@ -42,3 +42,7 @@ git stash pop stash@{num}
 # 清除工作现场
 git stash clear
 ```
+
+## 参考
+- [git命令大全](https://gist.github.com/guweigang/9848271)  
+- [gitmoji-An emoji guide for your commit messages](https://gitmoji.carloscuesta.me/)
