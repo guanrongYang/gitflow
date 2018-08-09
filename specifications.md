@@ -218,14 +218,16 @@ git commit -m "add README.md"
 
 # 创建develop长期分支
 git checkout -b develop
+# develop分支必须先与feature分支推到远程仓库中
+git push origin develop
 # 获取远程仓库的develop分支到本地develop分支
 # git fetch origin develop:develop
-# 创建功能分支
-git checkout -b feature/baseinfo
 
-# 开发功能 feature/baseinfo
+# 在develop的基础上创建功能分支
+git checkout -b feature/baseinfo develop
+# ... 开发功能 feature/baseinfo
 git push origin feature/baseinfo
-# 合并开发好且通过测试的feature/baseinfo 到develop
+# 合并开发好且通过测试的feature/baseinfo到develop
 git checkout develop
 git merge --no-ff feature/baseinfo
 
@@ -234,12 +236,68 @@ git branch -d feature/baseinfo
 # 删除远程仓库的功能分支
 git push origin :feature/baseinfo
 
-# ... 合并其他必要的功能
+# ... 继续开发合并其他分支
 
+# 预发布
+git checkout -b release/v0.1.0 develop
+git commit -a -m "initial version  v0.1.0"
+# ... 在release/v0.1.0上修改bugs
+
+# 发布线上版本
+git checkout master
+git merge --no-ff release/v0.1.0
+# commit note: initial version v0.1.1
+git tag v0.1.0
+git push origin master
+git push origin v0.1.0
+
+# 将release中修改过的代码合并到develop中
+git checkout develop
+git merge --no-ff release/v0.1.0
+
+# 删除不需要的release分支
+# 删除本地release分支
+git branch -d release/v0.1.0
+# 删除远程release分支
+git push origin :release/v0.1.0
+
+# 在线上发现一个Bug，需要紧急修复，一般来说，v0是还没有上线的版本
+git checkout -b hotfix/v0.1.0 master
+# ... 修复bugs
+# 重新发布一个版本，修订号加上1
+git checkout master
+git merge --no-ff hotfix/v0.1.0
+# commit note: bump version to v0.1.1
+git tag v0.1.1
+git push origin master
+git push origin v0.1.1
+
+# 将hotfix分支合并到develop中，如果此时有未发布的release分支，则合并到release分支中
+git checkout develop
+git merge --no-ff hotfix/v0.1.0
+git push origin develop
+
+# 删除hotfix分支
+git branch -d hotfix/v0.1.0
+git push origin :hotfix/v0.1.0
 ```
+
+经过以上的流程，我们可以得到如下的历史记录线图：  
+![gitflow-network](./images/gitflow-network.png)  
+
+以上的操作中，我们发布了两个版本0.1.0和0.1.1，这时可以在release中修改版本信息。
+
 ### Git-flow指令
 
 ## 注意事项
+### 限制只能在master分支创建hotfix分支和develop分支
+### 代码推送的方向
+可以合并到master的分支: hotfix, release  
+可以合并到develop的分支: feature，release，hotfix  
+可以合并到release的分支: hotfix，hotfix上自身的分支，如`release/vx.y.z/<subbranchname>`  
+可以合并到feature的分支: 该feature自身的分支，如`feature/<featurename>/<subbranchname>`
+可以合并到hotfix的分支: 该hotfix自身的分支，如`hotfix/vx.y.z/<subbranchname>`  
+禁止上出develop分支  
 ### 不要pull/push错误分支
 利用git hooks进行设置。https://www.jianshu.com/p/527e34f53b51
 
