@@ -30,6 +30,7 @@ https://gitlab.com/gitlab-org/gitter/webapp/network/master
 - 需要在不同的分支中频繁切换
 
 **[参考]**  
+
 1. [介绍一个成功的 Git 分支模型](https://www.oschina.net/translate/a-successful-git-branching-model)
 2. [A successful Git branching model](https://nvie.com/posts/a-successful-git-branching-model/)
 
@@ -71,16 +72,17 @@ tag的规则
 如何避免新手提交错分支
 
 ## 其他参考
-[Git 工作流程](http://www.ruanyifeng.com/blog/2015/12/git-workflow.html)  
-[Git Branch实操练习](https://learngitbranching.js.org/) 
-[Gitflow 有害论](http://insights.thoughtworkers.org/gitflow-consider-harmful/)  
-[runk-Based Development ](https://paulhammant.com/2013/04/05/what-is-trunk-based-development/)  
-[Feature Flag 功能发布控制](http://blog.jobbole.com/73930/)  
-[FeatureBranch](https://martinfowler.com/bliki/FeatureBranch.html)  
-[Git工作流指南](https://segmentfault.com/a/1190000008880416?_ea=1929609)  
-[git-workflow-tutorial.md](https://github.com/xirong/my-git/blob/master/git-workflow-tutorial.md)  
-[Git 在团队中的最佳实践--如何正确使用Git Flow](http://www.cnblogs.com/cnblogsfans/p/5075073.html)  
-[使用git,git-flow和gitlab工作](http://blog.2baxb.me/archives/736)  
+
+1. [Git 工作流程](http://www.ruanyifeng.com/blog/2015/12/git-workflow.html)  
+2. [Git Branch实操练习](https://learngitbranching.js.org/) 
+3. [Gitflow 有害论](http://insights.thoughtworkers.org/gitflow-consider-harmful/)  
+4. [runk-Based Development ](https://paulhammant.com/2013/04/05/what-is-trunk-based-development/)  
+5. [Feature Flag 功能发布控制](http://blog.jobbole.com/73930/)  
+6. [FeatureBranch](https://martinfowler.com/bliki/FeatureBranch.html)  
+7. [Git工作流指南](https://segmentfault.com/a/1190000008880416?_ea=1929609)  
+8. [git-workflow-tutorial.md](https://github.com/xirong/my-git/blob/master/git-workflow-tutorial.md)  
+9. [Git 在团队中的最佳实践--如何正确使用Git Flow](http://www.cnblogs.com/cnblogsfans/p/5075073.html)  
+10. [使用git,git-flow和gitlab工作](http://blog.2baxb.me/archives/736)  
 
 # Github Flow
 ## 中心思想
@@ -103,24 +105,27 @@ tag的规则
 - 开发中的代码，需要发布的代码，
 
 ## 其他参考  
-[GitHub Flow 及 Git Flow 流程使用時機](https://blog.wu-boy.com/2017/12/github-flow-vs-git-flow/)  
-[Github Flow - the best way to use git and github](https://githubflow.github.io/)  
-[Git 版本控制 branch model 分支模組基本介紹](https://blog.wu-boy.com/2011/03/git-%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6-branch-model-%E5%88%86%E6%94%AF%E6%A8%A1%E7%B5%84%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/)  
-[git flow 實戰經驗談 part1 - 別再讓 gitflow 拖累團隊的開發速度](https://blog.hellojcc.tw/2017/12/14/the-flaw-of-git-flow/)  
-[GitHub Flow & Git Flow 基于Git 的两种协作开发模式](http://www.cnblogs.com/sloong/p/5868292.html)  
-[15 Tips to Enhance your Github Flow](https://hackernoon.com/15-tips-to-enhance-your-github-flow-6af7ceb0d8a3)  
-[gitflow vs github flow](https://lucamezzalira.com/2014/03/10/git-flow-vs-github-flow/)  
+
+1. [GitHub Flow 及 Git Flow 流程使用時機](https://blog.wu-boy.com/2017/12/github-flow-vs-git-flow/)  
+2. [Github Flow - the best way to use git and github](https://githubflow.github.io/)  
+3. [Git 版本控制 branch model 分支模組基本介紹](https://blog.wu-boy.com/2011/03/git-%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6-branch-model-%E5%88%86%E6%94%AF%E6%A8%A1%E7%B5%84%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/)  
+4. [git flow 實戰經驗談 part1 - 別再讓 gitflow 拖累團隊的開發速度](https://blog.hellojcc.tw/2017/12/14/the-flaw-of-git-flow/)  
+5. [GitHub Flow & Git Flow 基于Git 的两种协作开发模式](http://www.cnblogs.com/sloong/p/5868292.html)  
+6. [15 Tips to Enhance your Github Flow](https://hackernoon.com/15-tips-to-enhance-your-github-flow-6af7ceb0d8a3)  
+7. [gitflow vs github flow](https://lucamezzalira.com/2014/03/10/git-flow-vs-github-flow/)  
 
 # Gitlab Flow
 ## 中心思想
 上流优先(upstream first) - 除了特殊情况，每条分支的代码只能来自于它的上流
 ![Gitlab Flow](./images/gitlabflow.jpg)
 
-**[参考]**
-[GitLab Flow - 中文](http://www.15yan.com/topic/yi-dong-kai-fa-na-dian-shi/6yueHxcgD9Z/)  
-[GitLab Flow - 英文](https://about.gitlab.com/2014/09/29/gitlab-flow/)  
+**[参考]**  
+
+1. [GitLab Flow - 中文](http://www.15yan.com/topic/yi-dong-kai-fa-na-dian-shi/6yueHxcgD9Z/)  
+2. [GitLab Flow - 英文](https://about.gitlab.com/2014/09/29/gitlab-flow/)  
 [基于GitLab Flow 的开发/测试/运维统一上线流程](http://www.fintx.org/20170705-dev-qa-ops-unified-flow-base-on-gitlab-flow.html)  
-[GitLab 工作流概览](https://www.cnhzz.com/gitlab-%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%A6%82%E8%A7%88/)  
+3. [GitLab 工作流概览](https://www.cnhzz.com/gitlab-%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%A6%82%E8%A7%88/) 
+  
 **特点**  
 
 **优点**  
