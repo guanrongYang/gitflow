@@ -60,10 +60,11 @@ git push origin :xxxx
 release,hotfix与之类似，唯一的一点区别：hotfix目前没有publish功能，所以提交远程仓库的这一步要改成：  
 git push origin hotfix/xxxx:hotfix/xxxx  
 ```
-**其他文章及使用gitflow工具**
-[Gitflow Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
-[GitHub Flow & Git Flow 基于Git 的两种协作开发模式](http://www.cnblogs.com/sloong/p/5868292.html)
-[Git Flow](https://zhangmengpl.gitbooks.io/gitlab-guide/content/whatisgitflow.html)
+
+**其他文章及使用gitflow工具**  
+1. [Gitflow Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)  
+2. [GitHub Flow & Git Flow 基于Git 的两种协作开发模式](http://www.cnblogs.com/sloong/p/5868292.html)  
+3. [Git Flow](https://zhangmengpl.gitbooks.io/gitlab-guide/content/whatisgitflow.html)
 ## 注意事项
 使用分支不推荐的是让新功能代码在分支上长时间堆积，分支应当是生存周期短的
 master分支的合并职责
