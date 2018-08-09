@@ -168,7 +168,7 @@ All notable changes to this project will be documented in this file.
 [1.0.2]: https://github.com/guanrongYang/gitflow/compare/v1.0.0...master
 ```
 
-### master分支权限
+### master 分支权限
 为了防止分支被pull或者push错误，这里需要为master设置特殊权限。  
 暂时没有找到方法。
 
@@ -179,20 +179,22 @@ All notable changes to this project will be documented in this file.
 
 其中的代码来自: feature分支, release分支和hotfix分支。
 
+由于develop分支才是开发流程中代码最新的分支，且用于接收来自开发者的feature分支的合并请求（默认是pull Request到master），所以这里将develop分支设置为Default Branch。在项目页面的Setting中Branch页面中即可设置。设置之后，github项目页面默认显示develop分支的内容，且用develop分支接收Pull Request.  
+
 **[注意]**  
 合并分支的时候，请务必使用`git merge --no-ff`。理由见上面的`master`中`commit note`的注意。  
 
 ## 预发布分支: release
 `release`是一条辅助分支，其命名格式为`release/vx.y.z`,其中的x.y.z表示版本号，也就是本次发布的版本。 
 
-该分支会发布到真实模拟的线上环境进行测试，如果没有问题就会发布到master中，否则会在该分支下进行fixbug，直到可以发布未知。如需要利用基于release分支添加新的分支来修复bug，请以`fixbug/<title>`的方式命名分支。  
+该分支会发布到真实模拟的线上环境进行测试，如果没有问题就会发布到master中，否则会在该分支下进行fixbug，直到可以发布未知。如需要利用基于release分支添加新的分支来修复bug，请以`release/vx.y.z/<subbranchname>`的方式命名分支。  
 
 这里附加一点，由于版本发布中可能会发现一些bug是会影响到之后的开发的，这时候，应该允许提前将release分支合并回到develop中，但release的保持正常的测试和发布，并且在合并到master分支之后必需合并回develop。
 
 ## 线上紧急修复分支: hotfix
 `hotfix`是一条辅助分支，用于修复线上的紧急bug，其命名格式为/vx.y.z (其中x.y.z表示版本号)。  
 
-由于hotfix分支是对master上已经发布的版本进行修复的分支，所有其对应的版本号延续其出发的master的节点的版本号，但在修复完成之后会重新发布一个版本到master中，并将z（修订号）增加1。  
+由于hotfix分支是对master上已经发布的版本进行修复的分支，所有其对应的版本号延续其出发的master的节点的版本号，修订号是在master节点修订号的基础上加1。  
 
 **[注意]**
 1. hotfix分支发布到master之后，请务必将hotfix分支合并到developop中。
@@ -282,12 +284,139 @@ git branch -d hotfix/v0.1.0
 git push origin :hotfix/v0.1.0
 ```
 
+如果分支无需与其他人进行共享，可以选择不push到远程仓库中。  
+
 经过以上的流程，我们可以得到如下的历史记录线图：  
 ![gitflow-network](./images/gitflow-network.png)  
 
 以上的操作中，我们发布了两个版本0.1.0和0.1.1，这时可以在release中修改版本信息。
 
 ### Git-flow指令
+第一次使用的时候，可以认真阅读一些输出的提示信息以及使用`git branch`指令查看分支的情况。
+
+#### 初始化
+创建一个gitflow项目
+```bash
+# 创建一个git项目，并创建master和develop分支
+git flow init
+# 初始的配置保持默认即可，这里保持分支命名规范与上面相同
+Initialized empty Git repository in /home/ygr/codes/github/gitflow2/.git/
+No branches exist yet. Base branches must be created now.
+Branch name for production releases: [master] 
+Branch name for "next release" development: [develop] 
+
+How to name your supporting branch prefixes?
+Feature branches? [feature/] 
+Bugfix branches? [bugfix/] 
+Release branches? [release/] 
+Hotfix branches? [hotfix/] 
+Support branches? [support/] 
+Version tag prefix? [] 
+Hooks and filters directory? [/home/ygr/codes/github/gitflow2/.git/hooks] 
+```
+在一个gitflow流程的项目中使用gitflow
+```bash
+
+```
+
+#### 开发功能
+```bash
+# 在develop的基础上创建功能分支feature/baseinfo并切换过去
+git flow feature start baseinfo
+# =========上面指令等价于===========
+# git checkout -b feature/baseinfo develop
+# ================================
+
+# ... 开发功能 feature/baseinfo
+# feature/baseinfo 开发完成
+git flow feature finish baseinfo
+# =========上面指令等价于===========
+# git checkout develop
+# git merge --no-ff feature/baseinfo
+# git branch -d feature/baseinfo
+# 如果远程仓库有feature/baseinfo，则会删除该远程分支
+# git push origin :feature/baseinfo
+# ================================
+git push origin develop
+
+# 若需要将feature分支发送到远程仓库，可以使用如下指令
+git flow feature publish baseinfo
+# =========上面指令等价于===========
+# git checkout feature/baseinfo
+# git push origin feature/baseinfo
+# ================================
+```
+
+#### 发布 Release
+```bash
+# 发布版本 v0.1.0，这里的版本号规范与上面保持一致
+git flow release start v0.1.0
+# =========上面指令等价于===========
+# git checkout -b release/v0.1.0 develop
+# ================================
+git flow release publish v0.1.0
+# =========上面指令等价于===========
+# git checkout release/v0.1.0
+# git push origin release/v0.1.0
+# ================================
+
+# ... 修复所有bugs
+
+# 发布到线上
+git flow release finish v0.1.0
+# =========上面指令等价于===========
+# git checkout master
+# git merge --no-ff release/v0.1.0
+# git tag v0.1.0
+# git checkout develop
+# git merge --no-ff release/v0.1.0
+# git branch -d release/v0.1.0
+# git push origin :release/v0.1.0
+# ================================
+git checkout master
+git push origin master
+git push origin v0.1.0
+git checkout develop
+git push origin develop
+```
+
+#### 紧急修复
+```bash
+git flow hotfix start v0.1.1
+# =========上面指令等价于===========
+# git checkout -b hotfix/v0.1.1 master
+# ================================
+git push origin hotfix/v0.1.1
+
+git flow hotfix finish v0.1.1
+# =========上面指令等价于===========
+# git checkout master
+# git merge --no-ff hotfix/v0.1.1
+# git tag v0.1.1
+# git checkout develop
+# git merge --no-ff hotfix/v0.1.1
+# git branch -d hotfix/v0.1.1
+# git push origin :hotfix/v0.1.1
+# ================================
+git checkout master
+git push origin master
+git push origin v0.1.1
+git checkout develop
+git push origin develop
+```
+
+经过一番操作之后，可以得到如下的效果图：  
+![gitflow-tool-network](./images/gitflow-tool-network.png)  
+
+对比两种操作，可以知道，使用gitflow工具会更加简单方便，出错的可能性会更小。
+
+**[参考]**  
+- gitflow工具源码：[gitflow](https://github.com/nvie/gitflow) gitflow 概念提出的作者开发的配套工具
+- 安装：[Gitflow Installation](https://github.com/nvie/gitflow/wiki/Installation) Ubuntu用户可以直接通过`sudo apt-get install git-flow`进行安装
+- 常用指令：[git-flow 备忘清单](http://danielkummer.github.io/git-flow-cheatsheet/index.zh_CN.html) 图文并茂地讲解gitflow的基本开发流程和常用指令
+- 所有指令：[Command Line Arguments](https://github.com/nvie/gitflow/wiki/Command-Line-Arguments) gitflow 源码中对于所有指令的及其参数的说明
+- [gitflow 命令指南](https://sealake.net/gitflow-ming-ling-zhi-nan/) gitflow的基础指令及配置
+- [Gitflow Work](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) 对gitflow进行讲解，同时提供一些基础指令
 
 ## 注意事项
 ### 限制只能在master分支创建hotfix分支和develop分支
